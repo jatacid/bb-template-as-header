@@ -16,7 +16,7 @@ function github_plugin_updater_test_init() {
 	if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
 		$config = array(
 			'slug' => plugin_basename( __FILE__ ),
-			'proper_folder_name' => 'github-updater',
+			'proper_folder_name' => 'bb-template-as-header',
 			'api_url' => 'https://api.github.com/repos/jatacid/bb-template-as-header',
 			'raw_url' => 'https://raw.github.com/jatacid/bb-template-as-header/master',
 			'github_url' => 'https://github.com/jatacid/bb-template-as-header',
@@ -25,7 +25,7 @@ function github_plugin_updater_test_init() {
 			'requires' => '3.0',
 			'tested' => '3.3',
 			'readme' => 'README.md',
-			'access_token' => '', //92e3146a5c5f368ad442175d845817398bc884b8
+			'access_token' => '',
 		);
 		new WP_GitHub_Updater( $config );
 	}
