@@ -4,32 +4,32 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 1.0.5
+Version: 1.0.6
 Author URI: http://www.wpbeaverbuilder.com
 
 */
 
-include_once('updater.php');
-
-
-if (is_admin()) { // note the use of is_admin() to double check that this is happening in the admin
-    $config = array(
-        'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
-        'proper_folder_name' => 'bb-template-as-header', // this is the name of the folder your plugin lives in
-        'api_url' => 'https://api.github.com/repos/jatacid/bb-template-as-header', // the github API url of your github repo
-        'raw_url' => 'https://raw.github.com/jatacid/bb-template-as-header/master', // the github raw url of your github repo
-        'github_url' => 'https://github.com/jatacid/bb-template-as-header', // the github url of your github repo
-        'zip_url' => 'https://github.com/jatacid/bb-template-as-header/zipball/master', // the zip url of the github repo
-        'sslverify' => true // wether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
-        'requires' => '3.8', // which version of WordPress does your plugin require?
-        'tested' => '4.0', // which version of WordPress is your plugin tested up to?
-        'readme' => 'README.MD' // which file to use as the readme for the version number
-    );
-    new WPGitHubUpdater($config);
+add_action( 'init', 'github_plugin_updater_test_init' );
+function github_plugin_updater_test_init() {
+	include_once 'updater.php';
+	define( 'WP_GITHUB_FORCE_UPDATE', true );
+	if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
+		$config = array(
+			'slug' => plugin_basename( __FILE__ ),
+			'proper_folder_name' => 'github-updater',
+			'api_url' => 'https://api.github.com/repos/jatacid/bb-template-as-header',
+			'raw_url' => 'https://raw.github.com/jatacid/bb-template-as-header/master',
+			'github_url' => 'https://github.com/jatacid/bb-template-as-header',
+			'zip_url' => 'https://github.com/jatacid/bb-template-as-header/archive/master.zip',
+			'sslverify' => true,
+			'requires' => '3.0',
+			'tested' => '3.3',
+			'readme' => 'README.md',
+			'access_token' => '',
+		);
+		new WP_GitHub_Updater( $config );
+	}
 }
-
-
-
 
 
 
