@@ -4,56 +4,15 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 1.0.1
+Version: 1.0.2
 Author URI: http://www.wpbeaverbuilder.com
 GitHub Plugin URI: https://github.com/jatacid/bb-template-as-header
 GitHub Branch:     master
 */
 
 
-require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
-
 require_once dirname( __FILE__ ) . '/insert-pages.php';
 
-add_action( 'tgmpa_register', 'my_theme_register_required_plugins' );
-function my_theme_register_required_plugins() {
-	/*
-	 * Array of plugin arrays. Required keys are name and slug.
-	 * If the source is NOT from the .org repo, then source is also required.
-	 */
-	$plugins = array(
-
-		// This is an example of how to include a plugin from an arbitrary external source in your theme.
-		array(
-			'name'         => 'Beaver Builder Plugin', // The plugin name.
-			'slug'         => 'bb-plugin', // The plugin slug (typically the folder name).
-			//'source'       => 'http://www.google.com', // The plugin source.
-			'required'     => true, // If false, the plugin is only 'recommended' instead of required.
-			//'external_url' => 'https://www.google.com', // If set, overrides default API URL and points to an external URL.
-		),
-	);
-
-	/*
-	 * Array of configuration settings. Amend each line as needed.
-	 *
-	 * Only uncomment the strings in the config array if you want to customize the strings.
-	 */
-	$config = array(
-		'id'           => 'tgmmpa',                 // Unique ID for hashing notices for multiple instances of TGMPA.
-		'default_path' => '',                      // Default absolute path to bundled plugins.
-		'menu'         => 'tgmpa-install-plugins', // Menu slug.
-		'parent_slug'  => 'themes.php',            // Parent menu slug.
-		'capability'   => 'edit_theme_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-		'has_notices'  => true,                    // Show admin notices or not.
-		'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
-		'dismiss_msg'  => 'This message and the links are broken, but you need to download the following plugins',                      // If 'dismissable' is false, this message will be output at top of nag.
-		'is_automatic' => false,                   // Automatically activate plugins after installation or not.
-		'message'      => '',                      // Message to output right before the plugins table.
-
-	);
-
-	tgmpa( $plugins, $config );
-}
 
 
 
