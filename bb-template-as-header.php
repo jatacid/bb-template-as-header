@@ -4,36 +4,23 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 1.0.3
+Version: 1.0.6
 Author URI: http://www.wpbeaverbuilder.com
 
 */
 
 
 
-if ( ! defined( 'ABSPATH' ) ) die();
-include( plugin_dir_path( __FILE__ ) . 'update.php');
-// Hook for adding admin menus
-if ( is_admin() ){ // admin actions
-	
-	$config = array(
-			'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
-			'proper_folder_name' => 'plugin-name', // this is the name of the folder your plugin lives in
-			'api_url' => 'https://api.github.com/repos/jatacid/bb-template-as-header', // the github API url of your github repo
-			'raw_url' => 'https://raw.github.com/jatacid/bb-template-as-header/master', // the github raw url of your github repo
-			'github_url' => 'https://github.com/jatacid/bb-template-as-header', // the github url of your github repo
-			'zip_url' => 'https://github.com/jatacid/bb-template-as-header/zipball/master', // the zip url of the github repo
-			'sslverify' => true // wether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
-			'requires' => '3.0', // which version of WordPress does your plugin require?
-			'tested' => '3.3', // which version of WordPress is your plugin tested up to?
-			'readme' => 'README.MD' // which file to use as the readme for the version number
-		);
-		new WP_GitHub_Updater($config);
-		// Hook for adding admin menu
-		add_action( 'admin_menu', 'fc_op_page' );
-		// Display the 'Settings' link in the plugin row on the installed plugins list page
-		add_filter( 'plugin_action_links_'.plugin_basename(__FILE__), 'fc_admin_plugin_actions', -10);
-} 
+if( !class_exists('WP_GitHub_Updater') )
+    require_once dirname(__FILE__) . '/update.php';
+
+$config = array(
+    'owner' => '{{jatacid}}',
+    'repo' => '{{bb-template-as-header}}',
+    'basename' => '{{bb-template-as-header}}/{{bb-template-as-header}}.php',
+);
+
+new WP_GitHub_Updater( $config );
 
 
 
