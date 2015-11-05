@@ -6,7 +6,18 @@ Description: Lets you select a template that you've saved in BB to use as a head
 Author: Jatacid
 Version: 1.0.0
 Author URI: http://www.wpbeaverbuilder.com
+GitHub Plugin URI: https://github.com/jatacid/bb-template-as-header
+GitHub Branch:     master
 */
+
+
+
+
+require_once( '/updater/BFIGitHubPluginUploader.php' );
+if ( is_admin() ) {
+    new BFIGitHubPluginUpdater( __FILE__, 'jatacid', "bb-template-as-header" );
+}
+
 
 require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
 
