@@ -11,14 +11,6 @@ GitHub Branch:     master
 */
 
 
-
-
-require_once( '/updater/BFIGitHubPluginUploader.php' );
-if ( is_admin() ) {
-    new BFIGitHubPluginUpdater( __FILE__, 'jatacid', "bb-template-as-header" );
-}
-
-
 require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
 
 require_once dirname( __FILE__ ) . '/insert-pages.php';
