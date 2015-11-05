@@ -4,7 +4,7 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 1.0.3
+Version: 1.0.4
 Author URI: http://www.wpbeaverbuilder.com
 GitHub Plugin URI: https://github.com/jatacid/bb-template-as-header
 GitHub Branch:     master
@@ -12,10 +12,6 @@ GitHub Branch:     master
 
 
 require_once dirname( __FILE__ ) . '/insert-pages.php';
-
-
-
-
 
 
 add_action( 'admin_menu', 'btah_add_admin_menu' );
