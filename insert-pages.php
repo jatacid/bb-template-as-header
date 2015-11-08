@@ -1,6 +1,7 @@
 <?php
 
 
+
 /*  Shortcode Format:
 	[insert page='{slug}|{id}' display='title|link|excerpt|excerpt-only|content|all|{custom-template.php}' class='any-classes']
 */

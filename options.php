@@ -28,10 +28,6 @@ function wpip_settings_init() {
 		'wpipSettings',
 		'wpip_section'
 	);
-
-
-
-
 }
 add_action( 'admin_init', 'wpip_settings_init' );
 

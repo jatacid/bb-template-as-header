@@ -4,24 +4,17 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 1.2
+Version: 1.1
 Author URI: http://www.wpbeaverbuilder.com
 
 */
 
 
 
-if( !class_exists('WP_GitHub_Updater') )
-    require_once dirname(__FILE__) . '/update.php';
-
-$config = array(
-    'owner' => '{{jatacid}}',
-    'repo' => '{{bb-template-as-header}}',
-    'basename' => '{{bb-template-as-header}}/{{bb-template-as-header}}.php',
-);
-
-new WP_GitHub_Updater( $config );
-
+require_once( 'update.php' );
+if ( is_admin() ) {
+    new BFIGitHubPluginUpdater( __FILE__, 'jatacid', "bb-template-as-header" );
+}
 
 
 
@@ -34,7 +27,7 @@ add_action( 'admin_init', 'btah_settings_init' );
 
 function btah_add_admin_menu(  ) { 
 
-	add_menu_page( 'Insert Template as Header', 'Insert Template as Header', 'manage_options', 'bb_template_as_header', 'btah_options_page' );
+add_submenu_page( 'options-general.php', 'Insert Template as Header', 'Insert Template as Header', 'manage_options', 'bb_template_as_header', 'btah_options_page' );
 
 }
 
