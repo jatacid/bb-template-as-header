@@ -23,7 +23,7 @@ $login = 'jatacid/bb-template-as-header';
 
 		$config = array(
 			'slug' => plugin_basename( __FILE__ ),
-			'proper_folder_name' => 'github-updater',
+			'proper_folder_name' => 'bb-template-as-header',
 			'api_url' => 'https://api.github.com/repos/' . $login,
 			'raw_url' => 'https://raw.github.com/' . $login .'/master',
 			'github_url' => 'https://github.com/'. $login,
