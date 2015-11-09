@@ -4,7 +4,7 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 2.0
+Version: 2.1
 Author URI: http://www.wpbeaverbuilder.com
 
 */
@@ -84,7 +84,7 @@ function btah_settings_init(  ) {
 
 	add_settings_field( 
 		'btah_text_field_1', 
-		__( 'Enter the classes you want to show in < header >tags', 'wordpress' ), 
+		__( 'Enter the css classes you want to show in < header >tags.  for example < header class="transparent fullwidth ugly awesome">', 'wordpress' ), 
 		'btah_text_field_1_render', 
 		'btahPluginPage', 
 		'btah_btahPluginPage_section' 
@@ -97,7 +97,9 @@ function btah_settings_init(  ) {
 function btah_text_field_0_render(  ) { 
 
 	$options = get_option( 'btah_settings' );
+
 	$imgsrc = plugins_url() . '/bb-template-as-header/template_id.gif';
+	echo '<a href="'.$imgsrc.'">Link To Gif</a>';
 	?>
 
 <p>Watch the Gif to learn how to get the POST ID </p>
