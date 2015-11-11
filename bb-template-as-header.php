@@ -4,7 +4,7 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
 Author: Jatacid
-Version: 2.1
+Version: 2.2
 Author URI: http://www.wpbeaverbuilder.com
 
 */
@@ -121,7 +121,9 @@ function btah_settings_section_callback(  ) {
 		 <br> <br> Step 3 <br> <br>
 		 Add any classes for the header and hit save.
 		  <br> <br> Step 4 <br> <br>
-		  Turn off your bb-themes header by going into your customizer and selecting header layout to "none"', 'wordpress' );
+		  Turn off your bb-themes header by going into your customizer and selecting header layout to "none"
+		   <br> <br> Step 5 (INFO) <br> <br>
+		  The ID of the header is "btah-top" if you want to link to it using a "back to top" link.', 'wordpress' );
 
 }
 
@@ -170,7 +172,7 @@ $a = do_shortcode('[insert page=' . $templateid . ' display="content"]');
 $a = esc_html($a);
 
 if  (!empty($a)) {
-   echo '<header ' . $classes . '>' . do_shortcode('[insert page=' . $templateid . ' display="content"]') . '</header>';
+   echo '<header id="btah-top"' . $classes . '>' . do_shortcode('[insert page=' . $templateid . ' display="content"]') . '</header>';
 }
 
 
