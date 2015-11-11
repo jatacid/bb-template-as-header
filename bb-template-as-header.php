@@ -11,13 +11,20 @@ Author URI: http://www.wpbeaverbuilder.com
 
 
 
-add_action( 'init', 'github_plugin_updater_test_init' );
+if (!function_exists( 'github_plugin_updater_test_init' )) {
 function github_plugin_updater_test_init() {
+// ... proceed to declare your function
+include_once 'updater.php';
+define( 'WP_GITHUB_FORCE_UPDATE', true );
+}
+}
+add_action( 'init', 'github_plugin_updater_test_init' );
 
-	include_once 'updater.php';
 
-	define( 'WP_GITHUB_FORCE_UPDATE', true );
 
+
+
+function btah_updater() {
 	if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
 $login = 'jatacid/bb-template-as-header';
 
@@ -34,13 +41,10 @@ $login = 'jatacid/bb-template-as-header';
 			'readme' => 'README.md',
 			'access_token' => '',
 		);
-
 		new WP_GitHub_Updater( $config );
-
-	}
-
 }
-
+}
+add_action( 'init', 'btah_updater' );
 
 
 
