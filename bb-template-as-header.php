@@ -2,13 +2,16 @@
 /*
 Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
-Description: Lets you select a template that you've saved in BB to use as a header across every page of your website.
+Description: Lets you select a template from the BB-theme customizer. You can use it as a header across your entire website.
 Author: Jatacid
-Version: 2.3
+Version: 2.4
 Author URI: http://www.wpbeaverbuilder.com
 
 */
 
+//checks for BB-theme
+$theme = wp_get_theme();
+if ('bb-theme' == $theme->name || 'Beaver Builder Theme' == $theme->parent_theme) {
 
 
 if (!function_exists( 'github_plugin_updater_test_init' )) {
@@ -19,11 +22,6 @@ define( 'WP_GITHUB_FORCE_UPDATE', true );
 }
 }
 add_action( 'init', 'github_plugin_updater_test_init' );
-
-
-
-
-
 function btah_updater() {
 	if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
 $login = 'jatacid/bb-template-as-header';
@@ -55,132 +53,88 @@ add_action( 'init', 'btah_updater' );
 
 
 
-require_once dirname( __FILE__ ) . '/insert-pages.php';
-add_action( 'admin_menu', 'btah_add_admin_menu' );
-add_action( 'admin_init', 'btah_settings_init' );
 
+function custom_register_theme_customizer( $wp_customize ) {
+// Add the Custom Template Settings to the customizer.
+  $wp_customize->add_section( 'custom-media', array(
+    'title'=> __( 'Custom Template Settings', 'fl-automator' ),
+    'description' => __( 'Enter the id for a template to insert it above the body content as a header. It has the ID of #custom-header. Dont forget to set your theme header layout to None', 'fl-automator' ),
+    'priority'=> 130,
+    ) );
 
-function btah_add_admin_menu(  ) { 
+    $wp_customize->add_setting('custom_header_template', array(
+      'default' => 'Choose A Template',
+      )
+    );
 
-add_submenu_page( 'options-general.php', 'Insert Template as Header', 'Insert Template as Header', 'manage_options', 'bb_template_as_header', 'btah_options_page' );
-
-}
-
-
-function btah_settings_init(  ) { 
-
-	register_setting( 'btahPluginPage', 'btah_settings' );
-
-	add_settings_section(
-		'btah_btahPluginPage_section', 
-		__( 'Insert BB Template As a Header Options', 'wordpress' ), 
-		'btah_settings_section_callback', 
-		'btahPluginPage'
-	);
-
-	add_settings_field( 
-		'btah_text_field_0', 
-		__( 'Template ID number', 'wordpress' ), 
-		'btah_text_field_0_render', 
-		'btahPluginPage', 
-		'btah_btahPluginPage_section' 
-	);
-
-	add_settings_field( 
-		'btah_text_field_1', 
-		__( 'Enter the css classes you want to show in < header >tags.  for example < header class="transparent fullwidth ugly awesome">', 'wordpress' ), 
-		'btah_text_field_1_render', 
-		'btahPluginPage', 
-		'btah_btahPluginPage_section' 
-	);
+      $wp_customize->add_control('custom_header_template', array(
+        'label' => 'Template',
+        'description' => 'Render a BB template file within "header" tags',
+        'section' => 'custom-media',
+        'type' => 'select',
+        'choices' => get_bb_templates()
+        )
+      );
 
 
 }
+add_action( 'customize_register', 'custom_register_theme_customizer' );
 
 
-function btah_text_field_0_render(  ) { 
 
-	$options = get_option( 'btah_settings' );
+function insert_custom_template() {
+$settings =  FLCustomizer::get_mods();
+$template = $settings['custom_header_template'];
 
-	$imgsrc = plugins_url() . '/bb-template-as-header/template_id.gif';
-	echo '<a href="'.$imgsrc.'">Link To Gif</a>';
-	?>
+if ($template !== '' ){
 
-<p>Watch the Gif to learn how to get the POST ID </p>
-<br>
-	<?php
-echo '<img src="' . $imgsrc .  '" > ';
-?>
-<br>
 
-	<input type='text' name='btah_settings[btah_text_field_0]' value='<?php echo $options['btah_text_field_0']; ?>'>
-	<?php
+echo '<header id="custom-header">' . do_shortcode('[fl_builder_insert_layout id="'.$template.'"]') . '</header>';
+
+} 
 
 }
-
-function btah_settings_section_callback(  ) { 
-
-	echo __( 'Step 1 <br><Br> Build a Global Div in Beaver Builder that you want to use for a header. Put in any menus or logo images you want and save it as a global module. <br> <br> Step 2 <br> <br>
-		Turn on your Templates admin by watching the gif below & copy pasting your Post_ID that you want to use as a header 
-		 <br> <br> Step 3 <br> <br>
-		 Add any classes for the header and hit save.
-		  <br> <br> Step 4 <br> <br>
-		  Turn off your bb-themes header by going into your customizer and selecting header layout to "none"
-		   <br> <br> Step 5 (INFO) <br> <br>
-		  The ID of the header is "btahtop" if you want to link to it using a "back to top" link.', 'wordpress' );
-
-}
-
-function btah_text_field_1_render(  ) { 
-
-	$options = get_option( 'btah_settings' );
-	?>
-	<input type='text' name='btah_settings[btah_text_field_1]' value='<?php echo $options['btah_text_field_1']; ?>'>
-	<?php
-
-}
+add_action( 'fl_after_header', 'insert_custom_template' );
 
 
-function btah_options_page(  ) { 
+function get_bb_templates() {
+    $data  = array();
+    $query = new WP_Query( array(
+        'post_type'     => 'fl-builder-template',
+        'orderby'       => 'title',
+        'order'       => 'ASC',
+        'posts_per_page'  => '-1'
+    ));
 
-	?>
-	<form action='options.php' method='post'>
-		
-		<h2>Insert BB Template as Header</h2>
-		
-		<?php
-		settings_fields( 'btahPluginPage' );
-		do_settings_sections( 'btahPluginPage' );
-		submit_button();
-		?>
-		
-	</form>
-	<?php
+  $data = array(
+        '' => 'Choose A Template'
+    );
 
+foreach( $query->posts as &$post ) {
+        $data[ $post->ID ] = $post->post_title;
+    }
+    return $data;
 }
 
 
 
 
-//Function to make it appear at the action fl_before_header
-function bb_template_as_header(){
 
 
 
-$options = get_option( 'btah_settings' );
-$templateid= $options['btah_text_field_0'];
-$classes= $options['btah_text_field_1'];
 
 
-$a = do_shortcode('[insert page=' . $templateid . ' display="content"]');
-$a = esc_html($a);
 
-if  (!empty($a)) {
-   echo '<header id="btahtop"' . $classes . '>' . do_shortcode('[insert page=' . $templateid . ' display="content"]') . '</header>';
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-}
-add_action('fl_before_header', 'bb_template_as_header');
-
-
