@@ -4,7 +4,7 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template from the BB-theme customizer. You can use it as a header across your entire website.
 Author: Jatacid
-Version: 2.4
+Version: 2.5
 Author URI: http://www.wpbeaverbuilder.com
 
 */
@@ -82,17 +82,31 @@ add_action( 'customize_register', 'custom_register_theme_customizer' );
 
 
 
+
+
+
+
+function custom_fl_header_enabled( $enabled ) {
+$settings =  FLCustomizer::get_mods();
+$template = $settings['custom_header_template'];
+if ($template !== '' ){
+       $enabled = false;
+       return $enabled;
+   }
+   else $enabled = true;
+   return $enabled;
+}
+add_filter( 'fl_header_enabled', 'custom_fl_header_enabled' );
+
+
+
+
 function insert_custom_template() {
 $settings =  FLCustomizer::get_mods();
 $template = $settings['custom_header_template'];
-
 if ($template !== '' ){
-
-
 echo '<header id="custom-header">' . do_shortcode('[fl_builder_insert_layout id="'.$template.'"]') . '</header>';
-
 } 
-
 }
 add_action( 'fl_after_header', 'insert_custom_template' );
 
