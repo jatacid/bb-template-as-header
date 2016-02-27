@@ -10,3 +10,12 @@ This utilises the new beaver builder shortcode to render layouts and requires th
 
 Example:
 <img src="https://github.com/jatacid/bb-template-as-header/blob/master/Capture.PNG?raw=true">
+
+
+Instructions:
+
+1. Install & Activate plugin
+2. Go into the BB-theme customizer
+3. There is a new section added, go into it and click the drop down select box (seen above)
+4. Select the name of the Global template that you have saved.
+5. IF YOU DON'T SEE YOUR TEMPLATES: Go into your Beaver Builder settings and enable templates in the settings admin.
