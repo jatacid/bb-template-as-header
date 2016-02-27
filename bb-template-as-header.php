@@ -58,7 +58,7 @@ function custom_register_theme_customizer( $wp_customize ) {
 // Add the Custom Template Settings to the customizer.
   $wp_customize->add_section( 'custom-media', array(
     'title'=> __( 'Custom Template Settings', 'fl-automator' ),
-    'description' => __( 'Enter the id for a template to insert it above the body content as a header. It has the ID of #custom-header. Dont forget to set your theme header layout to None', 'fl-automator' ),
+    'description' => __( 'Enter the id for a template to insert it above the body content as a header. It has the ID of #custom-header.', 'fl-automator' ),
     'priority'=> 130,
     ) );
 
