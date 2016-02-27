@@ -4,7 +4,7 @@ Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
 Description: Lets you select a template from the BB-theme customizer. You can use it as a header across your entire website.
 Author: Jatacid
-Version: 2.5
+Version: 2.6
 Author URI: http://www.wpbeaverbuilder.com
 
 */
