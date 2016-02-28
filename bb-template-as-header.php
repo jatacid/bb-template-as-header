@@ -2,9 +2,9 @@
 /*
 Plugin Name: BB Template as Header
 Plugin URI: http://www.wpbeaverbuilder.com
-Description: Lets you select a template from the BB-theme customizer. You can use it as a header across your entire website.
+Description: Lets you select a template from the BB-theme customizer. You can use it as a header or footer across your entire website.
 Author: Jatacid
-Version: 2.6
+Version: 2.7
 Author URI: http://www.wpbeaverbuilder.com
 
 */
@@ -51,14 +51,11 @@ add_action( 'init', 'btah_updater' );
 
 
 
-
-
-
 function custom_register_theme_customizer( $wp_customize ) {
 // Add the Custom Template Settings to the customizer.
   $wp_customize->add_section( 'custom-media', array(
     'title'=> __( 'Custom Template Settings', 'fl-automator' ),
-    'description' => __( 'Enter the id for a template to insert it above the body content as a header. It has the ID of #custom-header.', 'fl-automator' ),
+    'description' => __( 'Enter the id for a template to insert the beaver builder template on every page of your website.', 'fl-automator' ),
     'priority'=> 130,
     ) );
 
@@ -68,8 +65,8 @@ function custom_register_theme_customizer( $wp_customize ) {
     );
 
       $wp_customize->add_control('custom_header_template', array(
-        'label' => 'Template',
-        'description' => 'Render a BB template file within "header" tags',
+        'label' => 'Header Template',
+        'description' => 'Choose a saved BB template/row to use as a header. It will have a custom CSS class of #custom-header and be wrapped in header tags',
         'section' => 'custom-media',
         'type' => 'select',
         'choices' => get_bb_templates()
@@ -77,26 +74,24 @@ function custom_register_theme_customizer( $wp_customize ) {
       );
 
 
+    $wp_customize->add_setting('custom_footer_template', array(
+      'default' => 'Choose A Template',
+      )
+    );
+
+      $wp_customize->add_control('custom_footer_template', array(
+        'label' => 'Footer Template',
+        'description' => 'Choose a saved BB template/row to use as a footer. It will have a custom CSS Class of #custom-footer and be wrapped in footer tags',
+        'section' => 'custom-media',
+        'type' => 'select',
+        'choices' => get_bb_templates()
+        )
+      );
+
 }
 add_action( 'customize_register', 'custom_register_theme_customizer' );
 
 
-
-
-
-
-
-function custom_fl_header_enabled( $enabled ) {
-$settings =  FLCustomizer::get_mods();
-$template = $settings['custom_header_template'];
-if ($template !== '' ){
-       $enabled = false;
-       return $enabled;
-   }
-   else $enabled = true;
-   return $enabled;
-}
-add_filter( 'fl_header_enabled', 'custom_fl_header_enabled' );
 
 
 
@@ -109,6 +104,17 @@ echo '<header id="custom-header">' . do_shortcode('[fl_builder_insert_layout id=
 } 
 }
 add_action( 'fl_after_header', 'insert_custom_template' );
+
+function insert_custom_footer_template() {
+$settings =  FLCustomizer::get_mods();
+$template = $settings['custom_footer_template'];
+if ($template !== '' ){
+echo '<footer id="custom-footer">' . do_shortcode('[fl_builder_insert_layout id="'.$template.'"]') . '</footer>';
+} 
+}
+add_action( 'fl_before_footer', 'insert_custom_footer_template' );
+
+
 
 
 function get_bb_templates() {
