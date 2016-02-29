@@ -23,3 +23,6 @@ Instructions:
 3. There is a new section added, go into it and click the drop down select box (seen above)
 4. Select the name of the Global template that you have saved.
 5. IF YOU DON'T SEE YOUR TEMPLATES: Go into your Beaver Builder settings and enable templates in the settings admin.
+
+
+I don't plan on continuing much development for this but if you would like me to continue adding features then consider buying me a coffee <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jatacid%40gmail%2ecom&lc=AU&item_name=Dentex%20Media&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted">Using my Paypal</a>.
