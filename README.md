@@ -1,4 +1,4 @@
-# bb-template-as-header
+# bb-template-as-header-footer
 A Beaver Builder plugin which allows you to select any template and insert it before the BB header wrapped inside header tags.
 
 And now also allows you to select a footer template as well. 
